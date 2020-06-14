@@ -27,15 +27,14 @@ jobs:
         with:
           path: ~/.npm
           key: ${{runner.os}}-node-${{hashFiles('**/package-lock.json')}}
-          restore-keys: |
-            ${{runner.os}}-node-
+          restore-keys: ${{runner.os}}-node-
 
       - name: Start Maven Cache
         uses: actions/cache@v2
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          key: ${{runner.os}}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{runner.os}}-m2
 
       - name: Set up JDK 13
         uses: actions/setup-java@v1
@@ -51,20 +50,20 @@ jobs:
       - name: Build with Maven
         run: ./mvnw -B package -DskipTests --file pom.xml
 
-      - name: Prepare SSH Key
+      - name: Prepare SSH Key and Artefact
         if: ${{github.ref == 'refs/heads/develop'}}
-        run: 'echo "$SSH_KEY" > key && chmod 700 key'
+        run: 'echo "$SSH_KEY" > key && /bin/chmod 700 key && /bin/chmod 700 target && /bin/chmod 700 target/card-games.jar'
         shell: bash
         env:
           SSH_KEY: ${{secrets.KEY}}
 
       - name: Upload Project to Dev Server
         if: ${{github.ref == 'refs/heads/develop'}}
-        run: scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i key -r target/*.jar ${{secrets.USERNAME}}@${{secrets.HOST}}:${{secrets.PATH}}
+        run: /usr/bin/scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i key target/card-games.jar ${{secrets.USERNAME}}@${{secrets.HOST}}:${{secrets.PATH}}
 
       - name: Deploy Project on Dev Server
         if: ${{github.ref == 'refs/heads/develop'}}
-        run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i key ${{secrets.USERNAME}}@${{secrets.HOST}} ${{secrets.RESTART_SERVICE}}
+        run: /usr/bin/ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i key ${{secrets.USERNAME}}@${{secrets.HOST}} ${{secrets.RESTART_SERVICE}}
 
       - name: Alert IFTTT
         if: ${{github.ref == 'refs/heads/develop'}}
