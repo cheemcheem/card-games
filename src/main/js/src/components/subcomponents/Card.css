@@ -21,8 +21,17 @@ li.card:last-child {
 
 li.card:hover {
   transform: scale(1.1, 1.1);
+  margin: -6px calc(var(--card-width-overlap) * -1) -6px -6px;
   cursor: grab;
 }
+
+li.card:last-child:hover {
+  transform: scale(1.1, 1.1);
+  margin-left: -6px;
+  margin-right: 0;
+  cursor: grab;
+}
+
 li.card:active {
   cursor: grabbing;
 }

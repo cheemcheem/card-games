@@ -30,5 +30,4 @@ ul.cards {
 
   padding: 0;
   width: calc(var(--card-deck-total-width));
-  height: calc(var(--card-height) + 20px);
 }
