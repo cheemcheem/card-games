@@ -8,6 +8,7 @@
       </pattern>
     </extension>
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.cheemcheem.projects.cardgames.CardGamesApplication" />
+    <option name="ACTIVE_PROFILES" value="dev,debug" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <method v="2">
       <option name="Make" enabled="true" />

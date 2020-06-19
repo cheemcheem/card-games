@@ -4,9 +4,8 @@ import App from './App';
 
 afterEach(cleanup);
 
-test('renders waiting', () => {
+test('given a new app, when the app loads, it asks the user to start or join a game', async () => {
   const { getByText } = render(<App />);
-  waitForElement(() => getByText(/Waiting.../i));
-  const waiting = getByText(/Waiting.../i);
-  expect(waiting).toBeInTheDocument();
+  const element = await waitForElement(() => getByText(/Start new game/i));
+  expect(element).toBeInTheDocument();
 });
