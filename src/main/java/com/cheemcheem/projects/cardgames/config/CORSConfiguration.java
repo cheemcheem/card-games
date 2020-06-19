@@ -14,7 +14,7 @@ public class CORSConfiguration {
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowCredentials(true)
-                .allowedOrigins("http://localhost:3000", "https://cube.cheem.uk")
+                .allowedOrigins("https://cards.cheem.uk")
                 .allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS");
       }
     };
