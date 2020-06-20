@@ -46,3 +46,15 @@
   box-shadow: none;
   outline: pink;
 }
+
+.container-button:disabled {
+  background: grey;
+}
+
+.container-button:disabled {
+  outline: grey;
+}
+
+.container-text:disabled {
+  background: darkgray;
+}

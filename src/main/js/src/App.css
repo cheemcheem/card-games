@@ -96,8 +96,6 @@ button {
   cursor: grab;
 }
 
-
-
 .menu {
   padding: 15px;
   height: 100px;
@@ -131,4 +129,9 @@ button {
 
 .menu-button:focus {
   background: var(--red-color);
+}
+
+.warn {
+  font-weight: 700;
+  color: var(--red-color);
 }
