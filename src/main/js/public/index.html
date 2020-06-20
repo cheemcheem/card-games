@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="theme-color" content="#000000"/>
-  <meta name="description" content="Web site created using create-react-app"/>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400;700&display=swap"
-        media="screen"
-        rel="stylesheet">
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
-  <title>React App</title>
+    <title>Kathan - Card Games</title>
+    <link href="%PUBLIC_URL%/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="%PUBLIC_URL%/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="%PUBLIC_URL%/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="%PUBLIC_URL%/site.webmanifest" rel="manifest">
+    <link color="#0a100d" href="%PUBLIC_URL%/safari-pinned-tab.svg" rel="mask-icon">
+    <link href="%PUBLIC_URL%/favicon.ico" rel="icon"/>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400;700&display=swap"
+          media="screen"
+          rel="stylesheet">
+    <meta content="Card Games name="apple-mobile-web-app-title">
+    <meta content="Card Games" name="application-name">
+    <meta content="#0a100d" name="msapplication-TileColor">
+    <meta content="#0a100d" name="theme-color">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="Hi I'm Kathan and welcome to card games! Here you can find some card games to play online."
+          name="description"/>
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
 </body>
+<script>
+    // Add smooth scrolling polyfill to browsers that don't support it natively
+    const testElement = document.createElement('div');
+    const requiresScrollPoly = testElement.style.scrollBehavior === undefined;
+    if (requiresScrollPoly) {
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/iamdustan-smoothscroll/0.4.0/smoothscroll.min.js";
+        script.integrity = "sha256-IylDNWjip7FK2TJUYck237qBTBeSiwnSFDCjLG686D4="
+        script.crossOrigin = "anonymous";
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }
+</script>
 </html>
