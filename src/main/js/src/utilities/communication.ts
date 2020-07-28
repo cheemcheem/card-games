@@ -3,24 +3,34 @@ import {log} from "./log";
 import {URLS} from "./constant";
 import {CardOrder, CardSuit, CardType} from "../common/types";
 
-const {AUTH_URL, GET_GAME_URL, NEW_GAME_URL, DELETE_GAME_URL, EXIT_GAME_URL, JOIN_GAME_URL, GET_HAND_URL} = URLS;
+const {AUTH_URL, GET_GAME_URL, NEW_GAME_URL, DELETE_GAME_URL, EXIT_GAME_URL, JOIN_GAME_URL, GET_HAND_URL, GET_GAME_TYPES_URL, START_GAME_URL} = URLS;
 
 const getXSRFRequestInit = () => ({headers: {"X-XSRF-TOKEN": String(Cookie.get("XSRF-TOKEN"))}});
 
 const fetchX = (input: RequestInfo, init?: RequestInit) => {
   const xsrfCookie: RequestInit = getXSRFRequestInit();
-  return fetch(input, {...init, ...xsrfCookie});
+  return fetch(input, {...init, headers: {...init?.headers, ...xsrfCookie.headers}});
 };
 
 export const authenticate = () => fetchX(AUTH_URL).then(log).then(result => result.status === 204);
 
-export const startNewGame = () => fetchX(NEW_GAME_URL, {method: 'POST'}).then(log).then(result => result.text());
+export const startNewGame = (gameType: string, userName: string) => fetchX(
+    NEW_GAME_URL, {
+      method: 'POST',
+      body: log(JSON.stringify({gameType, userName})),
+      headers: {'Content-Type': 'application/json'}
+    }).then(log).then(result => result.text());
 
 export const deleteGame = () => fetchX(DELETE_GAME_URL, {method: 'DELETE'}).then(log);
 
 export const exitGame = () => fetchX(EXIT_GAME_URL, {method: 'DELETE'}).then(log);
 
-export const joinExistingGame = (gameId: string) => fetchX(log(`${JOIN_GAME_URL}/${gameId}`), {method: 'PUT'}).then(log);
+export const joinExistingGame = (gameId: string, userName: string) => fetchX(
+    JOIN_GAME_URL, {
+      method: 'PUT',
+      body: log(JSON.stringify({gameId, userName})),
+      headers: {'Content-Type': 'application/json'}
+    }).then(log);
 
 export const getGame = () => fetchX(GET_GAME_URL).then(log).then(handleResponseWithContent).then(log);
 
@@ -32,6 +42,13 @@ export const getHand = () => fetchX(GET_HAND_URL).then(log)
       number: CardOrder.get(value)
     } as CardType)))
 ;
+
+export const getGameTypes = () => fetchX(GET_GAME_TYPES_URL).then(log)
+    .then(handleResponseWithContent)
+    .then(json => (json as string[]))
+;
+
+export const startGame = () => fetchX(START_GAME_URL, {method: 'POST'}).then(log);
 
 const handleResponseWithContent = (response: Response) => {
   if (response.status === 200) return response.json();

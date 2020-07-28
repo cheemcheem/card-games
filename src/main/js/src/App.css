@@ -109,6 +109,7 @@ button {
 
 .menu-text {
   color: var(--main-bg-color);
+  margin: 0;
 }
 
 .menu-button {
@@ -131,7 +132,28 @@ button {
   background: var(--red-color);
 }
 
+.menu-v {
+  margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  width: 250px;
+}
+
+.menu-h {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
 .warn {
   font-weight: 700;
   color: var(--red-color);
+}
+
+.info {
+  font-weight: 700;
 }

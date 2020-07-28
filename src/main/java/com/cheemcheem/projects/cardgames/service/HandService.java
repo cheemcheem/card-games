@@ -69,35 +69,24 @@ public class HandService {
 
   @Transactional
   public Optional<HandDTO> getHand(String gameId, String sessionId) {
-    log.info("HandService.getHand");
-    log.debug("Getting a hand for session with id '{}' to game with id '{}'", sessionId, gameId);
-
     var optionalGame = this.gameRepository.findById(gameId);
 
     if (optionalGame.isEmpty()) {
-      log.debug("Could not find game with id '{}'.", gameId);
       return Optional.empty();
     }
 
     var game = optionalGame.get();
-    log.debug("Found game with id '{}'.", gameId);
-    log.debug("Found game '{}'", game);
 
     if (!game.getHands().containsKey(sessionId)) {
-      log.debug("Session with id '{}' is not playing in game with id '{}'", sessionId, gameId);
       return Optional.empty();
     }
 
-    log.debug("Session with id '{}' is playing in game with id '{}'", sessionId, gameId);
-
     var hand = game.getHands().get(sessionId);
-    log.debug("Session with id '{}' has hand '{}' in game with id '{}'", sessionId, hand, gameId);
 
     var handDTOHand = hand.getHand().stream()
         .map(card -> new CardDTO(card.getSuit().name(), card.getValue()))
         .collect(Collectors.toList());
     var handDTO = HandDTO.builder().hand(handDTOHand).build();
-    log.debug("Session with id '{}' has handDTO '{}' in game with id '{}'", sessionId, handDTO, gameId);
 
     return Optional.of(handDTO);
   }

@@ -23,10 +23,7 @@ public class HandController {
   @GetMapping("/get")
   public ResponseEntity<HandDTO> getHand(HttpSession httpSession,
       @RequestAttribute(Constants.GAME_ATTRIBUTE_KEY) String gameId) {
-
-    log.info("HandController.getHand");
     var sessionId = httpSession.getId();
-
     return ResponseEntity.of(this.handService.getHand(gameId, sessionId));
   }
 }
