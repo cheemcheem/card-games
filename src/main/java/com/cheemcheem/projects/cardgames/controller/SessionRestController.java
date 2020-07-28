@@ -11,7 +11,6 @@ public class SessionRestController {
 
   @RequestMapping("/api/authentication")
   public ResponseEntity<?> authenticate() {
-    log.info("SessionRestController.authenticate");
     return ResponseEntity.noContent().build();
   }
 

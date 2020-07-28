@@ -5,6 +5,7 @@ import Username from "./frontpage/Username";
 import RoomCode from "./frontpage/RoomCode";
 import SubmitButton from "./frontpage/SubmitButton";
 import {FormInputEnabledContext} from "../common/contexts";
+import GameDropDown from "./frontpage/GameDropDown";
 
 
 export default function FrontPage(props: {
@@ -21,6 +22,7 @@ export default function FrontPage(props: {
           enabled ? <></> : <h2 className={"menu-text warn"}>Experiencing connection issues...</h2>
       }</FormInputEnabledContext.Consumer>
       <Form submitAction={props.clickNewGame}>
+        <GameDropDown/>
         <Username/>
         <SubmitButton value={"Start new game"}/>
       </Form>

@@ -15,6 +15,10 @@
   width: 100%;
 }
 
+header {
+  flex: 0;
+}
+
 .card-deck {
   width: 100%;
   display: flex;
@@ -30,4 +34,30 @@ ul.cards {
 
   padding: 0;
   width: calc(var(--card-deck-total-width));
+}
+
+.container-child {
+  background: var(--dark-color);
+  color: var(--text-color);
+}
+
+.container-child {
+  text-align: center;
+}
+
+.players {
+  list-style: none;
+}
+
+.players > li {
+  text-align: left;
+  padding-left: 15px;
+}
+
+.players > li::before {
+  content: " - ";
+}
+
+.container-child > label {
+  color: var(--header-color);
 }

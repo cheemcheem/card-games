@@ -14,3 +14,15 @@ export const RoomCodeInputContext = React.createContext({
   },
   joinGameId: ""
 })
+export const GameTypeInputContext = React.createContext({
+  setGameType: (_: string) => {
+  },
+  gameTypes: [] as string[],
+  gameType: ""
+})
+export const EndGameContext = React.createContext({
+  endGame: () => {}
+})
+export const StartGameContext = React.createContext({
+  startGame: () => {}
+})

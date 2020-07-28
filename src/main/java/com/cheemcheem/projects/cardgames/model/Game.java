@@ -17,6 +17,9 @@ public class Game {
   @OneToMany(cascade = CascadeType.ALL)
   private Map<String, Hand> hands;
 
+  @OneToMany(cascade = CascadeType.ALL)
+  private Map<String, Player> players;
+
   @Id
   @Column(length = 4)
   private String id;
@@ -28,5 +31,8 @@ public class Game {
   @ElementCollection
   private List<Card> playedCards;
 
+  private String gameType;
+
+  private boolean started;
 }
 

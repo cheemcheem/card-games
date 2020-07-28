@@ -5,5 +5,7 @@ export const URLS = {
   DELETE_GAME_URL: "/api/game/delete",
   EXIT_GAME_URL: "/api/game/exit",
   JOIN_GAME_URL: "/api/game/join",
-  GET_HAND_URL: "/api/hand/get"
+  GET_HAND_URL: "/api/hand/get",
+  GET_GAME_TYPES_URL: "/api/game/types",
+  START_GAME_URL: "/api/game/start"
 };

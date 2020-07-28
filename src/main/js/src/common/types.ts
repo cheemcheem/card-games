@@ -48,4 +48,4 @@ export const CardSymbols = new Map<CardSuit, string>([
   ['Spades', '♠️'],
 ])
 
-export type Game = {id: string, isOwner: boolean, type: string};
+export type Game = {id: string, owner: string, gameType: string, userName: string, started: boolean, players: string[]};
