@@ -32,7 +32,7 @@ export default function useGame() {
           getGame()
           .then(setGame)
           .catch(endGameContext.endGame);
-        }, 5000);
+        }, 1000);
         cancelTimeout = () => clearTimeout(currentTimeout);
       }
       heartbeat();
