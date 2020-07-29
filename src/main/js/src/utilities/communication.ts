@@ -3,7 +3,7 @@ import {log} from "./log";
 import {URLS} from "./constant";
 import {CardOrder, CardSuit, CardType} from "../common/types";
 
-const {AUTH_URL, GET_GAME_URL, NEW_GAME_URL, DELETE_GAME_URL, EXIT_GAME_URL, JOIN_GAME_URL, GET_HAND_URL, GET_GAME_TYPES_URL, START_GAME_URL} = URLS;
+const {AUTH_URL, GAME_DETAILS_URL, GAME_STATIC_DETAILS_URL, NEW_GAME_URL, DELETE_GAME_URL, EXIT_GAME_URL, JOIN_GAME_URL, GET_HAND_URL, GET_GAME_TYPES_URL, START_GAME_URL} = URLS;
 
 const getXSRFRequestInit = () => ({headers: {"X-XSRF-TOKEN": String(Cookie.get("XSRF-TOKEN"))}});
 
@@ -32,7 +32,8 @@ export const joinExistingGame = (gameId: string, userName: string) => fetchX(
       headers: {'Content-Type': 'application/json'}
     }).then(log);
 
-export const getGame = () => fetchX(GET_GAME_URL).then(log).then(handleResponseWithContent).then(log);
+export const getGameDetails = () => fetchX(GAME_DETAILS_URL).then(log).then(handleResponseWithContent).then(log);
+export const getGameStaticDetails = () => fetchX(GAME_STATIC_DETAILS_URL).then(log).then(handleResponseWithContent).then(log);
 
 export const getHand = () => fetchX(GET_HAND_URL).then(log)
     .then(handleResponseWithContent)

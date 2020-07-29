@@ -1,18 +1,21 @@
 import React from "react";
 import './GameScene.css';
 import './FrontPage.css';
-import useGame from "../hooks/useGame";
+import useGameDetails from "../hooks/useGameDetails";
 import GameMenu from "./gamescene/GameMenu";
 import GameLobby from "./gamescene/GameLobby";
 import GameStarted from "./gamescene/GameStarted";
+import useStaticGameDetails from "../hooks/useGameStaticDetails";
 
 export default function GameScene() {
-  const game = useGame();
+  const gameDetails = useGameDetails();
+  const staticGameDetails = useStaticGameDetails();
 
-  if (game) {
+  if (staticGameDetails) {
     return <div className={"game"}>
-      <GameMenu game={game}/>
-      {game.started ? <GameStarted game={game}/> : <GameLobby game={game}/>}
+      <GameMenu game={staticGameDetails}/>
+      {gameDetails?.started ? <GameStarted/> :
+          <GameLobby gameDetails={gameDetails} staticGameDetails={staticGameDetails}/>}
     </div>
   }
 

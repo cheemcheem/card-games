@@ -27,7 +27,8 @@ module card.games {
   opens com.cheemcheem.projects.cardgames;
   opens com.cheemcheem.projects.cardgames.config to spring.core, spring.beans, spring.context;
   opens com.cheemcheem.projects.cardgames.controller to spring.beans, spring.web;
-  opens com.cheemcheem.projects.cardgames.dto to com.fasterxml.jackson.databind;
+  opens com.cheemcheem.projects.cardgames.dto.client to com.fasterxml.jackson.databind;
+  opens com.cheemcheem.projects.cardgames.dto.server to com.fasterxml.jackson.databind;
   opens com.cheemcheem.projects.cardgames.interceptor to spring.beans;
   opens com.cheemcheem.projects.cardgames.model to spring.core, spring.beans, spring.data.jpa, org.hibernate.orm.core, spring.context;
   opens com.cheemcheem.projects.cardgames.repository to spring.beans, spring.core, spring.context;

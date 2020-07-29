@@ -1,9 +1,9 @@
 import {EndGameContext} from "../../common/contexts";
 import {deleteGame, exitGame} from "../../utilities/communication";
 import React from "react";
-import {Game} from "../../common/types";
+import {GameStaticDetails} from "../../common/types";
 
-export default function GameMenu({game}: { game: Game }) {
+export default function GameMenu({game}: { game: GameStaticDetails }) {
 
   return <>
     <header className={"menu"}>
