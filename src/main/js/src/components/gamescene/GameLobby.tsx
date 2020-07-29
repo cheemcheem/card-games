@@ -1,10 +1,10 @@
 import {startGame} from "../../utilities/communication";
 import React from "react";
 import {GameDetails, GameStaticDetails} from "../../common/types";
+import ErrorBoundary from "../error/ErrorBoundary";
 
 export default function GameLobby({gameDetails, staticGameDetails}: { gameDetails?: GameDetails, staticGameDetails: GameStaticDetails }) {
-
-  return <>
+  return <GameLobbyErrorBoundary>
     <div className={"container"}>
       <div className={"container-child"}>
         <h2>Players</h2>
@@ -18,5 +18,14 @@ export default function GameLobby({gameDetails, staticGameDetails}: { gameDetail
             : <label>Waiting for host...</label>}
       </div>
     </div>
-  </>
+  </GameLobbyErrorBoundary>
+}
+
+function GameLobbyErrorBoundary(props: React.PropsWithChildren<any>) {
+  const renderError = <>
+    <div className={"container"}>
+      <h2 className={"warn"}>Something went wrong displaying the game lobby.</h2>
+    </div>
+  </>;
+  return <ErrorBoundary renderError={renderError}>{props.children}</ErrorBoundary>
 }

@@ -2,10 +2,10 @@ import {EndGameContext} from "../../common/contexts";
 import {deleteGame, exitGame} from "../../utilities/communication";
 import React from "react";
 import {GameStaticDetails} from "../../common/types";
+import ErrorBoundary from "../error/ErrorBoundary";
 
 export default function GameMenu({game}: { game: GameStaticDetails }) {
-
-  return <>
+  return <GameMenuErrorBoundary>
     <header className={"menu"}>
       <div className={"menu-h"}>
         <div className={"menu-v"}>
@@ -36,5 +36,16 @@ export default function GameMenu({game}: { game: GameStaticDetails }) {
         </button>
       }</EndGameContext.Consumer>
     </header>
-  </>
+  </GameMenuErrorBoundary>
+}
+
+function GameMenuErrorBoundary(props: React.PropsWithChildren<any>) {
+  const renderError = <>
+    <header className={"menu"}>
+       <div className={"menu-v"} style={{width: "auto"}}>
+         <h2 className={"menu-text warn"}>Something went wrong displaying the game menu.</h2>
+       </div>
+    </header>
+  </>;
+  return <ErrorBoundary renderError={renderError}>{props.children}</ErrorBoundary>
 }

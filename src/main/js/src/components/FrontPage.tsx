@@ -6,6 +6,7 @@ import RoomCode from "./frontpage/RoomCode";
 import SubmitButton from "./frontpage/SubmitButton";
 import {FormInputEnabledContext} from "../common/contexts";
 import GameDropDown from "./frontpage/GameDropDown";
+import ErrorBoundary from "./error/ErrorBoundary";
 
 
 export default function FrontPage(props: {
@@ -13,7 +14,7 @@ export default function FrontPage(props: {
   clickJoinGame: () => void
 }) {
 
-  return <>
+  return <FrontPageErrorBoundary>
     <header className={"menu"}>
       <h1 className={"menu-text"}>Welcome to cards.</h1>
     </header>
@@ -33,5 +34,19 @@ export default function FrontPage(props: {
         <SubmitButton value={"Join an existing game"}/>
       </Form>
     </div>
-  </>
+  </FrontPageErrorBoundary>
+}
+
+function FrontPageErrorBoundary(props: React.PropsWithChildren<any>) {
+  const renderError = <>
+    <div className={"game"}>
+      <header className={"menu"}>
+        <h2>{'\u00A0'}</h2>
+      </header>
+      <div className={"container"}>
+        <h2 className={"warn"}>Something went wrong.</h2>
+      </div>
+    </div>
+  </>;
+  return <ErrorBoundary renderError={renderError}>{props.children}</ErrorBoundary>
 }

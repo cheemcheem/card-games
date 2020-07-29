@@ -12,7 +12,7 @@ const fetchX = (input: RequestInfo, init?: RequestInit) => {
   return fetch(input, {...init, headers: {...init?.headers, ...xsrfCookie.headers}});
 };
 
-export const authenticate = () => fetchX(AUTH_URL).then(log).then(result => result.status === 204);
+export const authenticate = () => fetchX(AUTH_URL).then(result => result.status === 204);
 
 export const startNewGame = (gameType: string, userName: string) => fetchX(
     NEW_GAME_URL, {
@@ -32,8 +32,8 @@ export const joinExistingGame = (gameId: string, userName: string) => fetchX(
       headers: {'Content-Type': 'application/json'}
     }).then(log);
 
-export const getGameDetails = () => fetchX(GAME_DETAILS_URL).then(log).then(handleResponseWithContent).then(log);
-export const getGameStaticDetails = () => fetchX(GAME_STATIC_DETAILS_URL).then(log).then(handleResponseWithContent).then(log);
+export const getGameDetails = () => fetchX(GAME_DETAILS_URL).then(handleResponseWithContent);
+export const getGameStaticDetails = () => fetchX(GAME_STATIC_DETAILS_URL).then(handleResponseWithContent);
 
 export const getHand = () => fetchX(GET_HAND_URL).then(log)
     .then(handleResponseWithContent)
