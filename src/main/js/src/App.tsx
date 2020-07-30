@@ -5,7 +5,6 @@ import useLoggedIn from "./hooks/useLoggedIn";
 import useSaveState from "./hooks/useSaveState";
 import useGameTypes from "./hooks/useGameTypes";
 import {
-  EndGameContext,
   FormInputEnabledContext,
   GameTypeInputContext,
   NameInputContext,
@@ -35,9 +34,7 @@ export default function App() {
     <main>{
       gameStarted
           ? <>
-            <EndGameContext.Provider value={{endGame}}>
-              <GameScene/>
-            </EndGameContext.Provider>
+            <GameScene endGame={endGame}/>
           </>
           : <>
             <NameInputContext.Provider value={{joinGameName, setJoinGameName}}>

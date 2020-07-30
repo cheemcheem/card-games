@@ -1,18 +1,16 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {getGameDetails} from "../utilities/communication";
 import {GameDetails} from "../common/types";
-import {EndGameContext} from "../common/contexts";
 
-export default function useGameDetails(): GameDetails | undefined {
+export default function useGameDetails({endGame}: { endGame: () => void }): GameDetails | undefined {
 
   const [gameDetails, setGameDetails] = useState(undefined as undefined | GameDetails)
-  const endGameContext = useContext(EndGameContext);
 
   useEffect(() => {
     getGameDetails()
     .then(setGameDetails)
-    .catch(endGameContext.endGame);
-  }, [endGameContext.endGame])
+    .catch(endGame);
+  }, [endGame])
 
   useEffect(() => {
     let cancelTimeout = undefined;
@@ -22,14 +20,14 @@ export default function useGameDetails(): GameDetails | undefined {
         getGameDetails()
         .then(setGameDetails)
         .then(heartbeat)
-        .catch(endGameContext.endGame);
+        .catch(endGame);
       }, 1000);
       cancelTimeout = () => clearTimeout(currentTimeout);
     }
     heartbeat();
 
     return cancelTimeout;
-  }, [endGameContext.endGame])
+  }, [endGame])
 
 
   return gameDetails;

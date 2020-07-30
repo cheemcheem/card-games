@@ -1,18 +1,16 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {getGameStaticDetails} from "../utilities/communication";
 import {GameStaticDetails} from "../common/types";
-import {EndGameContext} from "../common/contexts";
 
-export default function useStaticGameDetails(): GameStaticDetails | undefined {
+export default function useStaticGameDetails({endGame}: { endGame: () => void }): GameStaticDetails | undefined {
 
   const [staticGameDetails, setStaticGameDetails] = useState(undefined as undefined | GameStaticDetails);
-  const endGameContext = useContext(EndGameContext);
 
   useEffect(() => {
     getGameStaticDetails()
     .then(setStaticGameDetails)
-    .catch(endGameContext.endGame);
-  }, [endGameContext.endGame])
+    .catch(endGame);
+  }, [endGame])
 
   useEffect(() => {
     let cancelTimeout = undefined;
@@ -23,7 +21,7 @@ export default function useStaticGameDetails(): GameStaticDetails | undefined {
           getGameStaticDetails()
           .then(setStaticGameDetails)
           .then(heartbeat)
-          .catch(endGameContext.endGame);
+          .catch(endGame);
         }, 1000);
         cancelTimeout = () => clearTimeout(currentTimeout);
       }
@@ -31,7 +29,7 @@ export default function useStaticGameDetails(): GameStaticDetails | undefined {
     }
 
     return cancelTimeout;
-  }, [staticGameDetails, endGameContext.endGame])
+  }, [staticGameDetails, endGame])
 
 
   return staticGameDetails;

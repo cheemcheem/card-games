@@ -1,9 +1,8 @@
-import {startGame} from "../../utilities/communication";
 import React from "react";
 import {GameDetails, GameStaticDetails} from "../../common/types";
 import ErrorBoundary from "../error/ErrorBoundary";
 
-export default function GameLobby({gameDetails, staticGameDetails}: { gameDetails?: GameDetails, staticGameDetails: GameStaticDetails }) {
+export default function GameLobby({startGame, gameDetails, staticGameDetails}: { startGame: () => void, gameDetails?: GameDetails, staticGameDetails: GameStaticDetails }) {
   return <GameLobbyErrorBoundary>
     <div className={"container"}>
       <div className={"container-child"}>

@@ -33,6 +33,7 @@ export const joinExistingGame = (gameId: string, userName: string) => fetchX(
     }).then(log);
 
 export const getGameDetails = () => fetchX(GAME_DETAILS_URL).then(handleResponseWithContent);
+
 export const getGameStaticDetails = () => fetchX(GAME_STATIC_DETAILS_URL).then(handleResponseWithContent);
 
 export const getHand = () => fetchX(GET_HAND_URL).then(log)
@@ -49,9 +50,14 @@ export const getGameTypes = () => fetchX(GET_GAME_TYPES_URL).then(log)
     .then(json => (json as string[]))
 ;
 
-export const startGame = () => fetchX(START_GAME_URL, {method: 'POST'}).then(log);
+export const startGame = () => fetchX(START_GAME_URL, {method: 'POST'}).then(handleResponseWithNoContent);
 
 const handleResponseWithContent = (response: Response) => {
   if (response.status === 200) return response.json();
+  throw new Error(`Response has status ${response.status}.`);
+};
+
+const handleResponseWithNoContent = (response: Response) => {
+  if (response.status === 204) return;
   throw new Error(`Response has status ${response.status}.`);
 };

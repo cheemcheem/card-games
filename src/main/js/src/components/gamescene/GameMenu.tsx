@@ -1,10 +1,9 @@
-import {EndGameContext} from "../../common/contexts";
 import {deleteGame, exitGame} from "../../utilities/communication";
 import React from "react";
 import {GameStaticDetails} from "../../common/types";
 import ErrorBoundary from "../error/ErrorBoundary";
 
-export default function GameMenu({game}: { game: GameStaticDetails }) {
+export default function GameMenu({game, endGame}: { game: GameStaticDetails, endGame: () => void }) {
   return <GameMenuErrorBoundary>
     <header className={"menu"}>
       <div className={"menu-h"}>
@@ -27,14 +26,12 @@ export default function GameMenu({game}: { game: GameStaticDetails }) {
               : <h2 className={"menu-text warn"}>No Game Type!</h2>}
         </div>
       </div>
-      <EndGameContext.Consumer>{
-        ({endGame}) => <button className={"menu-button"}
-                               onClick={() => {
-                                 ((game.owner === game.userName) ? deleteGame() : exitGame()).then(endGame)
-                               }}>
-          {(game.owner === game.userName) ? "End Game" : "Exit Game"}
-        </button>
-      }</EndGameContext.Consumer>
+      <button className={"menu-button"}
+              onClick={() => {
+                ((game.owner === game.userName) ? deleteGame() : exitGame()).then(endGame)
+              }}>
+        {(game.owner === game.userName) ? "End Game" : "Exit Game"}
+      </button>
     </header>
   </GameMenuErrorBoundary>
 }
@@ -42,9 +39,9 @@ export default function GameMenu({game}: { game: GameStaticDetails }) {
 function GameMenuErrorBoundary(props: React.PropsWithChildren<any>) {
   const renderError = <>
     <header className={"menu"}>
-       <div className={"menu-v"} style={{width: "auto"}}>
-         <h2 className={"menu-text warn"}>Something went wrong displaying the game menu.</h2>
-       </div>
+      <div className={"menu-v"} style={{width: "auto"}}>
+        <h2 className={"menu-text warn"}>Something went wrong displaying the game menu.</h2>
+      </div>
     </header>
   </>;
   return <ErrorBoundary renderError={renderError}>{props.children}</ErrorBoundary>
