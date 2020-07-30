@@ -1,13 +1,14 @@
 package com.cheemcheem.projects.cardgames.service;
 
-import com.cheemcheem.projects.cardgames.dto.GameDTO;
-import com.cheemcheem.projects.cardgames.dto.NewGameDTO;
+import com.cheemcheem.projects.cardgames.dto.client.NewGameDTO;
+import com.cheemcheem.projects.cardgames.dto.server.GameDetailsDTO;
+import com.cheemcheem.projects.cardgames.dto.server.GameStaticDetailsDTO;
 import com.cheemcheem.projects.cardgames.model.Player;
 import com.cheemcheem.projects.cardgames.repository.GameRepository;
 import com.cheemcheem.projects.cardgames.repository.PlayerRepository;
 import com.cheemcheem.projects.cardgames.utility.GameBuilder;
+import java.util.ArrayList;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -90,18 +91,43 @@ public class GameService {
   }
 
   @Transactional
-  public Optional<GameDTO> getGameDTOById(String gameId, String sessionId) {
+  public Optional<GameStaticDetailsDTO> getGameStaticDetailsDTOById(String gameId,
+      String sessionId) {
 
     var optionalGame = this.gameRepository.findById(gameId);
 
     if (optionalGame.isPresent()) {
       var game = optionalGame.get();
-      var gameDTO = GameDTO.builder()
+      var gameDTO = GameStaticDetailsDTO.builder()
+          .minPlayers(4)
+          .maxPlayers(4)
           .id(game.getId())
           .gameType(game.getGameType())
-          .players(game.getPlayers().values().stream().map(Player::getUserName).collect(Collectors.toList()))
           .owner(game.getPlayers().get(game.getOwnerSessionId()).getUserName())
           .userName(game.getPlayers().getOrDefault(sessionId, new Player()).getUserName())
+          .build();
+
+      return Optional.of(gameDTO);
+    }
+    return Optional.empty();
+  }
+
+
+  @Transactional
+  public Optional<GameDetailsDTO> getGameDetailsDTOById(String gameId) {
+
+    var optionalGame = this.gameRepository.findById(gameId);
+
+    if (optionalGame.isPresent()) {
+      var game = optionalGame.get();
+
+      var players = new ArrayList<String>();
+      for (Player player : game.getPlayers().values()) {
+        players.add(player.getUserName());
+      }
+
+      var gameDTO = GameDetailsDTO.builder()
+          .players(players)
           .started(game.isStarted())
           .build();
 

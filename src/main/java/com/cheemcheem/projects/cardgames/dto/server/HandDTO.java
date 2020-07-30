@@ -1,4 +1,4 @@
-package com.cheemcheem.projects.cardgames.dto;
+package com.cheemcheem.projects.cardgames.dto.server;
 
 import java.util.List;
 import lombok.Builder;

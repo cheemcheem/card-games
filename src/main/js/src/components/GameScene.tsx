@@ -1,78 +1,70 @@
-import React from "react";
-import {deleteGame, exitGame, startGame} from "../utilities/communication";
+import React, {useState} from "react";
 import './GameScene.css';
 import './FrontPage.css';
-import useGame from "../hooks/useGame";
-import {EndGameContext} from "../common/contexts";
-import Card from "./subcomponents/Card";
+import useGameDetails from "../hooks/useGameDetails";
+import GameMenu from "./gamescene/GameMenu";
+import GameLobby from "./gamescene/GameLobby";
+import GameStarted from "./gamescene/GameStarted";
+import useStaticGameDetails from "../hooks/useGameStaticDetails";
+import ErrorBoundary from "./error/ErrorBoundary";
+import ReactLoading from "react-loading";
+import {startGame} from "../utilities/communication";
 
-export default function GameScene() {
+export default function GameScene({endGame}: { endGame: () => void }) {
+  const gameDetails = useGameDetails({endGame});
+  const staticGameDetails = useStaticGameDetails({endGame});
+  const [showLoadingScreen, setShowLoadingScreen] = useState(undefined as undefined | string);
 
-  const game = useGame();
-
-  if (!game) {
-    return <></>;
+  const handleStartGame = () => {
+    setShowLoadingScreen("Starting Game")
+    startGame()
+    .then(() => new Promise(resolve => setTimeout(resolve, 2000)))
+    .then(() => setShowLoadingScreen(undefined))
+    .catch(() => setShowLoadingScreen(undefined))
+    ;
   }
-  const isOwner = game.owner === game.userName;
 
+  const handleEndGame = () => {
+    setShowLoadingScreen("Leaving Game")
+    setTimeout(() => {
+      endGame();
+      setShowLoadingScreen(undefined);
+    }, 2000)
+    ;
+  }
 
-  return <>
+  if (staticGameDetails) {
+    return <GameSceneErrorBoundary>
+      <div className={"game"}>
+        <GameMenu game={staticGameDetails} endGame={handleEndGame}/>
+        {showLoadingScreen
+            ? <div className={"container"}>
+              <h1>{showLoadingScreen}</h1>
+              <ReactLoading type={"cylon"}
+                            color={getComputedStyle(document.getElementById("root")!).getPropertyValue('--header-color')}/>
+            </div>
+            : gameDetails?.started
+                ? <GameStarted/>
+                : <GameLobby startGame={handleStartGame} gameDetails={gameDetails}
+                             staticGameDetails={staticGameDetails}/>}
+      </div>
+    </GameSceneErrorBoundary>
+  }
+
+  return <></>;
+
+}
+
+function GameSceneErrorBoundary(props: React.PropsWithChildren<any>) {
+  const renderError = <>
     <div className={"game"}>
       <header className={"menu"}>
-        <div className={"menu-h"}>
-          <div className={"menu-v"}>
-            <h4 className={"menu-text"}>Welcome</h4>
-            {game.userName
-                ? <h2 className={"menu-text info"}>{game.userName}</h2>
-                : <h2 className={"menu-text warn"}>No User Name!</h2>}
-          </div>
-          <div className={"menu-v"}>
-            <h4 className={"menu-text"}>Room Code</h4>
-            {game.id
-                ? <h2 className={"menu-text info"}>{game.id}</h2>
-                : <h2 className={"menu-text warn"}>No Game ID!</h2>}
-          </div>
-          <div className={"menu-v"}>
-            <h4 className={"menu-text"}>Game Type</h4>
-            {game.gameType
-                ? <h2 className={"menu-text info"}>{game.gameType}</h2>
-                : <h2 className={"menu-text warn"}>No Game Type!</h2>}
-          </div>
-        </div>
-        <EndGameContext.Consumer>{
-          ({endGame}) => <button className={"menu-button"}
-                                 onClick={() => {
-                                   (isOwner ? deleteGame() : exitGame()).then(endGame)
-                                 }}>
-            {isOwner ? "End Game" : "Exit Game"}
-          </button>
-        }</EndGameContext.Consumer>
+        <h2>{'\u00A0'}</h2>
       </header>
-
-      {game.started
-          ? <>
-            <div className={"card-deck"}>
-              <h2>Your Cards</h2>
-              <ul className={"cards"}>
-                {game.hand.map(card => <Card key={card.number + card.suit} card={card}/>)}
-              </ul>
-            </div>
-          </>
-          : <>
-            <div className={"container"}>
-              <div className={"container-child"}>
-                <h2>Players</h2>
-                <ul className={"players"}>
-                  {game.players.map(player => <li key={player}>
-                    {player + (player === game.owner ? " (host)" : player === game.userName ? " (you)" : "")}
-                  </li>)}
-                </ul>
-                {isOwner
-                    ? <button className={"container-button"} onClick={startGame}>Everyone Joined?</button>
-                    : <label>Waiting for host...</label>}
-              </div>
-            </div>
-          </>}
+      <div className={"container"}>
+        <h2 className={"warn"}>Something went wrong.</h2>
+      </div>
     </div>
-  </>
+  </>;
+  return <ErrorBoundary renderError={renderError}>{props.children}</ErrorBoundary>
 }

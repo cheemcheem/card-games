@@ -1,10 +1,10 @@
 package com.cheemcheem.projects.cardgames.controller;
 
-import com.cheemcheem.projects.cardgames.dto.GameDTO;
-import com.cheemcheem.projects.cardgames.dto.JoinGameDTO;
-import com.cheemcheem.projects.cardgames.dto.NewGameDTO;
+import com.cheemcheem.projects.cardgames.dto.client.JoinGameDTO;
+import com.cheemcheem.projects.cardgames.dto.client.NewGameDTO;
+import com.cheemcheem.projects.cardgames.dto.server.GameDetailsDTO;
+import com.cheemcheem.projects.cardgames.dto.server.GameStaticDetailsDTO;
 import com.cheemcheem.projects.cardgames.service.GameService;
-import com.cheemcheem.projects.cardgames.service.HandService;
 import com.cheemcheem.projects.cardgames.service.SessionService;
 import com.cheemcheem.projects.cardgames.utility.Constants;
 import java.net.URI;
@@ -56,11 +56,19 @@ public class GameController {
     return ResponseEntity.created(URI.create("/api/game/get")).body(gameId);
   }
 
-  @GetMapping("/get")
-  public ResponseEntity<GameDTO> getGame(
+  @GetMapping("/details")
+  public ResponseEntity<GameDetailsDTO> getDetails(
       HttpSession httpSession,
       @RequestAttribute(Constants.GAME_ATTRIBUTE_KEY) String gameId) {
-    var optionalState = this.gameService.getGameDTOById(gameId, httpSession.getId());
+    var optionalState = this.gameService.getGameDetailsDTOById(gameId);
+    return ResponseEntity.of(optionalState);
+  }
+
+  @GetMapping("/details/static")
+  public ResponseEntity<GameStaticDetailsDTO> getStaticDetails(
+      HttpSession httpSession,
+      @RequestAttribute(Constants.GAME_ATTRIBUTE_KEY) String gameId) {
+    var optionalState = this.gameService.getGameStaticDetailsDTOById(gameId, httpSession.getId());
     return ResponseEntity.of(optionalState);
   }
 

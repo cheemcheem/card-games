@@ -1,6 +1,6 @@
 package com.cheemcheem.projects.cardgames.controller;
 
-import com.cheemcheem.projects.cardgames.dto.HandDTO;
+import com.cheemcheem.projects.cardgames.dto.server.HandDTO;
 import com.cheemcheem.projects.cardgames.service.HandService;
 import com.cheemcheem.projects.cardgames.utility.Constants;
 import javax.servlet.http.HttpSession;

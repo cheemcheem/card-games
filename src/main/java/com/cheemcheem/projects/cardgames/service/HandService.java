@@ -1,14 +1,12 @@
 package com.cheemcheem.projects.cardgames.service;
 
-import com.cheemcheem.projects.cardgames.dto.CardDTO;
-import com.cheemcheem.projects.cardgames.dto.HandDTO;
+import com.cheemcheem.projects.cardgames.dto.server.CardDTO;
+import com.cheemcheem.projects.cardgames.dto.server.HandDTO;
 import com.cheemcheem.projects.cardgames.model.Card;
 import com.cheemcheem.projects.cardgames.model.Hand;
-import com.cheemcheem.projects.cardgames.model.Suit;
 import com.cheemcheem.projects.cardgames.repository.GameRepository;
 import com.cheemcheem.projects.cardgames.repository.HandRepository;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;

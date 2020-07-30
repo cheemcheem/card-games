@@ -1,6 +1,7 @@
 export const URLS = {
   AUTH_URL: "/api/authentication",
-  GET_GAME_URL: "/api/game/get",
+  GAME_DETAILS_URL: "/api/game/details",
+  GAME_STATIC_DETAILS_URL: "/api/game/details/static",
   NEW_GAME_URL: "/api/game/new",
   DELETE_GAME_URL: "/api/game/delete",
   EXIT_GAME_URL: "/api/game/exit",

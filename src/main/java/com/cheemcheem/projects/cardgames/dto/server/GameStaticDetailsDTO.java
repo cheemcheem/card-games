@@ -1,12 +1,15 @@
-package com.cheemcheem.projects.cardgames.dto;
+package com.cheemcheem.projects.cardgames.dto.server;
 
-import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class GameDTO {
+public class GameStaticDetailsDTO {
+
+  private int minPlayers;
+
+  private int maxPlayers;
 
   private String id;
 
@@ -16,7 +19,5 @@ public class GameDTO {
 
   private String userName;
 
-  private boolean started;
 
-  private List<String> players;
 }
