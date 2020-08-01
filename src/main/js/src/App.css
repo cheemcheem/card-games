@@ -98,7 +98,7 @@ button {
 
 .menu {
   padding: 15px;
-  height: 100px;
+  height: var(--menu-height);
   color: var(--main-bg-color);
   background: var(--text-color);
   display: flex;
@@ -136,17 +136,17 @@ button {
   margin-right: 15px;
   display: flex;
   flex-direction: column;
-  align-content: center;
   align-items: center;
-  justify-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 250px;
+  height: var(--menu-height);
 }
 
 .menu-h {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  height: var(--menu-height);
 }
 
 .warn {

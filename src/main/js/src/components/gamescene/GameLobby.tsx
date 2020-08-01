@@ -1,21 +1,17 @@
 import React from "react";
+import ErrorBoundary from "../common/ErrorBoundary";
 import {GameDetails, GameStaticDetails} from "../../common/types";
-import ErrorBoundary from "../error/ErrorBoundary";
+import GamePlayers from "./GamePlayers";
 
-export default function GameLobby({startGame, gameDetails, staticGameDetails}: { startGame: () => void, gameDetails?: GameDetails, staticGameDetails: GameStaticDetails }) {
+export default function GameLobby({gameDetails, staticGameDetails, startGame}: { gameDetails?: GameDetails, staticGameDetails: GameStaticDetails, startGame: () => void }) {
   return <GameLobbyErrorBoundary>
     <div className={"container"}>
-      <div className={"container-child"}>
-        <h2>Players</h2>
-        <ul className={"players"}>
-          {gameDetails?.players.map(player => <li key={player}>
-            {player + (player === staticGameDetails.owner ? " (host)" : player === staticGameDetails.userName ? " (you)" : "")}
-          </li>)}
-        </ul>
+      <GamePlayers owner={staticGameDetails.owner} userName={staticGameDetails.owner}
+                   players={gameDetails?.players}>
         {(staticGameDetails.owner === staticGameDetails.userName)
             ? <button className={"container-button"} onClick={startGame}>Everyone Joined?</button>
             : <label>Waiting for host...</label>}
-      </div>
+      </GamePlayers>
     </div>
   </GameLobbyErrorBoundary>
 }

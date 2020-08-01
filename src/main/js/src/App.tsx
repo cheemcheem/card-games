@@ -12,7 +12,7 @@ import {
 } from "./common/contexts";
 import FrontPage from "./components/FrontPage";
 import GameScene from "./components/GameScene";
-import ErrorBoundary from "./components/error/ErrorBoundary";
+import ErrorBoundary from "./components/common/ErrorBoundary";
 
 export default function App() {
   const [gameStarted, setGameStarted] = useSaveState(false, "gameStarted");
@@ -22,13 +22,14 @@ export default function App() {
   const loggedIn = useLoggedIn();
   const [gameTypes, gameType, setGameType] = useGameTypes();
 
-  const endGame = () => setGameStarted(false);
-  const newGame = () => startNewGame(gameType, joinGameName).then(() => setGameStarted(true))
+  const endGame = async () => setGameStarted(false);
+  const newGame = () => startNewGame(gameType, joinGameName).then(() => setGameStarted(true));
   const joinGame = () => {
     if (joinGameId) {
-      joinExistingGame(joinGameId!, joinGameName).then(() => setGameStarted(true))
+      return joinExistingGame(joinGameId!, joinGameName).then(() => setGameStarted(true));
     }
-  };
+    return Promise.resolve();
+  }
 
   return <AppErrorBoundary>
     <main>{
@@ -53,7 +54,7 @@ export default function App() {
 
 
 function AppErrorBoundary(props: React.PropsWithChildren<any>) {
-  const renderError = <>
+  const renderError = <main>
     <div className={"game"}>
       <header className={"menu"}>
         <h2>{'\u00A0'}</h2>
@@ -62,6 +63,6 @@ function AppErrorBoundary(props: React.PropsWithChildren<any>) {
         <h2 className={"warn"}>Something went wrong.</h2>
       </div>
     </div>
-  </>;
+  </main>
   return <ErrorBoundary renderError={renderError}>{props.children}</ErrorBoundary>
 }
