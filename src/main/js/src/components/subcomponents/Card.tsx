@@ -1,12 +1,11 @@
 import {CardColours, CardSymbols, CardType} from "../../common/types";
 import React from "react";
 import './Card.css';
-import {log} from "../../utilities/log";
 
 export default function Card(props: { card: CardType }) {
   return <>
     <li className={`card ${CardColours.get(props.card.suit)}`}
-        key={log(props.card.number + props.card.suit)}>
+        key={props.card.number + props.card.suit}>
       <div className={"card-number"}>
         <h2>{props.card.number}</h2>
         <small>{CardSymbols.get(props.card.suit)}</small>

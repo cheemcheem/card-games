@@ -3,21 +3,15 @@ import {getGameStaticDetails} from "../utilities/communication";
 import {GameStaticDetails} from "../common/types";
 
 export default function useStaticGameDetails({endGame}: { endGame: () => void }): GameStaticDetails | undefined {
-
   const [staticGameDetails, setStaticGameDetails] = useState(undefined as undefined | GameStaticDetails);
 
   useEffect(() => {
-    getGameStaticDetails()
-    .then(setStaticGameDetails)
-    .catch(endGame);
-  }, [endGame])
-
-  useEffect(() => {
-    let cancelTimeout = undefined;
+    let cancelTimeout: any;
+    let currentTimeout: any;
 
     if (!staticGameDetails) {
       const heartbeat = () => {
-        const currentTimeout = setTimeout(() => {
+        currentTimeout = setTimeout(() => {
           getGameStaticDetails()
           .then(setStaticGameDetails)
           .then(heartbeat)

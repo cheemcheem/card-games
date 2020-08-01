@@ -14,11 +14,12 @@ export default function useLoggedIn() {
   }, [loggedIn]);
 
   useEffect(() => {
-    let cancelTimeout = undefined;
+    let cancelTimeout: any;
+    let currentTimeout: any;
 
     if (loggedIn) {
       const heartbeat = () => {
-        const currentTimeout = setTimeout(() => {
+        currentTimeout  = setTimeout(() => {
           authenticate().then(status => status ? heartbeat() : setLoggedIn(false))
         }, 5000);
         cancelTimeout = () => clearTimeout(currentTimeout);

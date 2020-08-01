@@ -52,10 +52,11 @@ ul.cards {
 .players > li {
   text-align: left;
   padding-left: 15px;
+  width: calc(var(--container-width) - 15px);
 }
 
-.players > li::before {
-  content: " - ";
+.players > :nth-of-type(odd){
+  backdrop-filter: brightness(85%);
 }
 
 .container-child > label {
