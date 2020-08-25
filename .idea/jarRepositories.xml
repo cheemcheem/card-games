@@ -4,6 +4,11 @@
     <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="carlspring" />
+      <option name="name" value="carlspring" />
       <option name="url" value="http://repo.carlspring.org/content/groups/carlspring" />
     </remote-repository>
     <remote-repository>
@@ -17,8 +22,8 @@
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="carlspring" />
-      <option name="name" value="carlspring" />
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
       <option name="url" value="http://repo.carlspring.org/content/groups/carlspring" />
     </remote-repository>
   </component>

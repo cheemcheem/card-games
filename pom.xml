@@ -3,240 +3,52 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.4.RELEASE</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-  <groupId>com.cheemcheem.projects</groupId>
+
   <artifactId>card-games</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>card-games</name>
-  <description>Web app for multiplayer card games.</description>
   <packaging>jar</packaging>
 
-  <properties>
-    <npm.version>6.14.4</npm.version>
-    <node.version>v12.18.0</node.version>
-    <java.version>13</java.version>
-    <commons-lang3.version>3.9</commons-lang3.version>
-    <mapstruct-processor.version>1.3.1.Final</mapstruct-processor.version>
-    <frontend-maven-plugin.version>1.9.1</frontend-maven-plugin.version>
-    <org.apache.maven.plugins.version>3.0.0-M4</org.apache.maven.plugins.version>
-  </properties>
+  <name>card-games</name>
+  <description>Web app for multiplayer card games.</description>
+  <url>https://cards.cheem.uk</url>
 
-  <dependencies>
-    <dependency>
-      <artifactId>spring-boot-starter</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>spring-boot-starter-security</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>spring-boot-starter-data-redis</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>spring-session-data-redis</artifactId>
-      <groupId>org.springframework.session</groupId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <artifactId>mapstruct-processor</artifactId>
-      <groupId>org.mapstruct</groupId>
-      <scope>provided</scope>
-      <version>${mapstruct-processor.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>${commons-lang3.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.vintage</groupId>
-          <artifactId>junit-vintage-engine</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-  </dependencies>
+  <licenses>
+    <license>
+      <name>GNU General Public License v3.0</name>
+      <url>https://spdx.org/licenses/GPL-3.0-or-later.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Kathan Cheema</name>
+      <email>kathan@cheem.uk</email>
+      <url>https://cheem.uk</url>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/cheemcheem/card-games.git</connection>
+    <developerConnection>scm:git:ssh://github.com:cheemcheem/card-games.git</developerConnection>
+    <url>https://github.com/cheemcheem/card-games/tree/master</url>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/cheemcheem/spring-boot-react-parent</url>
+    </repository>
+  </repositories>
+
+  <parent>
+    <groupId>dev.cheem.projects</groupId>
+    <artifactId>spring-boot-react-parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
   <build>
     <finalName>card-games</finalName>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven-compiler-plugin.version}</version>
-          <configuration>
-            <source>${java.version}</source>
-            <target>${java.version}</target>
-            <annotationProcessorPaths>
-              <path>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
-                <version>${mapstruct-processor.version}</version>
-              </path>
-              <path>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-              </path>
-            </annotationProcessorPaths>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>${org.apache.maven.plugins.version}</version>
-        <configuration>
-          <includes>
-            <include>**/*Test*.java</include>
-          </includes>
-          <argLine>--add-opens java.base/jdk.internal.misc=ALL-UNNAMED
-            -Dio.netty.tryReflectionSetAccessible=true
-          </argLine>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>clean</phase>
-            <goals>
-              <goal>test</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.github.eirslett</groupId>
-        <artifactId>frontend-maven-plugin</artifactId>
-        <version>${frontend-maven-plugin.version}</version>
-        <configuration>
-          <workingDirectory>src/main/js</workingDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <id>Install Node/NPM</id>
-            <goals>
-              <goal>install-node-and-npm</goal>
-            </goals>
-            <configuration>
-              <nodeVersion>${node.version}</nodeVersion>
-              <npmVersion>${npm.version}</npmVersion>
-            </configuration>
-          </execution>
-          <execution>
-            <id>Install Node Modules</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>install</arguments>
-              <environmentVariables>
-                <PATH>/bin</PATH>
-              </environmentVariables>
-            </configuration>
-          </execution>
-          <execution>
-            <id>Test NPM Project</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>test</arguments>
-              <environmentVariables>
-                <PATH>/bin:/usr/bin</PATH>
-                <CI>true</CI>
-              </environmentVariables>
-            </configuration>
-            <phase>test</phase>
-          </execution>
-          <execution>
-            <id>Build NPM Project</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>run-script build</arguments>
-              <environmentVariables>
-                <BUILD_DIR>${project.build.outputDirectory}/static</BUILD_DIR>
-                <PATH>/bin</PATH>
-              </environmentVariables>
-            </configuration>
-            <phase>prepare-package</phase>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>no-frontend</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <version>${frontend-maven-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>Install Node/NPM</id>
-                <phase>none</phase>
-              </execution>
-              <execution>
-                <id>Install Node Modules</id>
-                <phase>none</phase>
-              </execution>
-              <execution>
-                <id>Build NPM Project</id>
-                <phase>none</phase>
-              </execution>
-              <execution>
-                <id>Test NPM Project</id>
-                <phase>none</phase>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
