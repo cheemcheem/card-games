@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Target Folder
-      - uses: actions/download-artifact@master
+        uses: actions/download-artifact@master
         with:
           name: maven compile
           path: target/
