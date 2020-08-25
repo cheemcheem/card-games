@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>card-games</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>card-games</name>
+  <name>Card Games</name>
   <description>Web app for multiplayer card games.</description>
   <url>https://cards.cheem.uk</url>
 
@@ -29,9 +29,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/cheemcheem/card-games.git</connection>
-    <developerConnection>scm:git:ssh://github.com:cheemcheem/card-games.git</developerConnection>
-    <url>https://github.com/cheemcheem/card-games/tree/master</url>
+    <connection>scm:git:git://github.com/${github.username}/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:ssh://github.com:${github.username}/${project.artifactId}.git</developerConnection>
+    <url>https://github.com/${github.username}/${project.artifactId}/tree/master</url>
   </scm>
 
   <repositories>
@@ -49,6 +49,10 @@
   </parent>
 
   <build>
-    <finalName>card-games</finalName>
+    <finalName>${project.artifactId}</finalName>
   </build>
+
+  <properties>
+    <github.username>cheemcheem</github.username>
+  </properties>
 </project>
