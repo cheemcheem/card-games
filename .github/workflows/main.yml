@@ -47,12 +47,18 @@ jobs:
 
       - name: Compile with Maven
         run: ./mvnw -B clean compile --file pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test with Maven
         run: ./mvnw -B test --file pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build with Maven
         run: ./mvnw -B package -DskipTests --file pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare SSH Key and Artefact
         if: ${{github.ref == 'refs/heads/develop'}}
