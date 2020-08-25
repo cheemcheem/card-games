@@ -63,11 +63,11 @@ jobs:
 
       - name: Upload Project to Dev Server
         if: ${{github.ref == 'refs/heads/develop'}}
-        run: /usr/bin/scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i key target/card-games.jar ${{secrets.USERNAME}}@${{secrets.HOST}}:${{secrets.PATH}}
+        run: /usr/bin/scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i key target/card-games.jar ${{secrets.REMOTE}}:${{secrets.PATH}}
 
       - name: Deploy Project on Dev Server
         if: ${{github.ref == 'refs/heads/develop'}}
-        run: /usr/bin/ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i key ${{secrets.USERNAME}}@${{secrets.HOST}} ${{secrets.RESTART_SERVICE}}
+        run: /usr/bin/ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i key ${{secrets.REMOTE}} ${{secrets.RESTART_SERVICE}}
 
       - name: Alert IFTTT
         if: ${{github.ref == 'refs/heads/develop'}}
