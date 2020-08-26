@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="back-end" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="Application Dev" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="card-games" />
     <extension name="coverage">
       <pattern>
@@ -10,6 +10,11 @@
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.cheemcheem.projects.cardgames.CardGamesApplication" />
     <option name="ACTIVE_PROFILES" value="dev,debug" />
     <option name="ALTERNATIVE_JRE_PATH" />
+    <envs>
+      <env name="JPA_URL" value="jdbc:h2:mem:testdb" />
+      <env name="JPA_USERNAME" value="sa" />
+      <env name="JPA_PASSWORD" value="password" />
+    </envs>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
