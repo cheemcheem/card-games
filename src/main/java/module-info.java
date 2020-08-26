@@ -19,7 +19,6 @@ module card.games {
   requires spring.security.core;
   requires spring.security.web;
   requires spring.session.core;
-  requires spring.session.data.redis;
   requires spring.web;
 
   requires static lombok;

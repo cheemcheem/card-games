@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>card-games</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <packaging>jar</packaging>
 
   <name>Card Games</name>
@@ -45,7 +45,7 @@
   <parent>
     <groupId>dev.cheem.projects</groupId>
     <artifactId>spring-boot-react-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
   </parent>
 
   <build>
