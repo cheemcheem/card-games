@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: card-games-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: card-games
+  template:
+    metadata:
+      labels:
+        app: card-games
+    spec:
+      containers:
+      - image: <IMAGE>
+        name: card-games-container
+        ports:
+        - containerPort: 8080
+        env:
+        - name: JPA_URL
+          valueFrom:
+            secretKeyRef:
+              name: <SECRET_NAME>
+              key: CARD_JPA_URL
+        - name: JPA_DB
+          valueFrom:
+            secretKeyRef:
+              name: <SECRET_NAME>
+              key: CARD_JPA_DB
+        - name: JPA_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: <SECRET_NAME>
+              key: CARD_JPA_USERNAME
+        - name: JPA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: <SECRET_NAME>
+              key: CARD_JPA_PASSWORD
+        - name: spring_profiles_active
+          valueFrom:
+            secretKeyRef:
+              name: <SECRET_NAME>
+              key: CARD_spring_profiles_active
+        - name: SERVER_PORT
+          valueFrom:
+            secretKeyRef:
+              name: <SECRET_NAME>
+              key: CARD_SERVER_PORT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: card-games-service
+spec:
+  selector:
+     app: card-games
+  type: ClusterIP
+  ports:
+    - name: card-games-port
+      port: 8080
